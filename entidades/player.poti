@@ -1,0 +1,11 @@
+tipo Jogador
+	var x, y: Real
+	var largura, altura: Inteiro
+	var sprite: Imagem
+
+	iniciar() fim
+
+	desenhar() fim
+
+	atualizar() fim
+fim
