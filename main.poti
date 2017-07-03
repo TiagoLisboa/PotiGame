@@ -1,0 +1,9 @@
+use "jerimum"
+
+atualize()
+fim
+
+desenhe()
+fim
+
+jogo.iniciar("Título", 640, 480, atualize, desenhe, 60)
