@@ -1,0 +1,29 @@
+tipo Mapa 
+	var background, foreground: Lista[Inteiro]
+	var largura, altura: Inteiro
+	var tiles: Lista[Imagem]
+
+	iniciar() fim
+
+	desenhar()
+		var x := 0
+		var y := 0
+		para i de 1 até background.tamanho faça
+			se background[i] <> 0 então
+				tiles[background[i]].desenhe(x, y, 0)
+			fim
+
+			se foreground[i] <> 0 então
+				tiles[foreground[i]].desenhe(x, y, 1)
+			fim
+
+			x := x + 32
+			se i mod largura == 0 então
+				y := y + 32
+				x := 0
+			fim
+		fim
+	fim
+
+	atualizar() fim
+fim
