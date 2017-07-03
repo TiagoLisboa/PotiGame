@@ -1,0 +1,12 @@
+tipo Mapa 
+	var background, foreground: Lista[Inteiro]
+	var largura, altura: Inteiro
+	var tiles: Lista[Imagem]
+
+	iniciar() fim
+
+	desenhar()
+	fim
+
+	atualizar() fim
+fim
