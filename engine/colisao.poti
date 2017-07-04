@@ -1,0 +1,6 @@
+tipo Colisao
+	var noroeste: Logico
+	var nordeste: Logico
+	var suldoeste: Logico
+	var suldeste: Logico
+fim
