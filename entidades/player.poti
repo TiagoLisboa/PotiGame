@@ -2,10 +2,18 @@ tipo Jogador
 	var x, y: Real
 	var largura, altura: Inteiro
 	var sprite: Imagem
+	var vel = 5
 
 	iniciar() fim
 
-	desenhar() fim
+	desenhar() 
+		sprite.desenhe(x, y, 3)
+	fim
 
-	atualizar() fim
+	atualizar() 
+		se Teclado.TECLA_W então y := y - 1 * vel fim
+		se Teclado.TECLA_S então y := y + 1 * vel fim
+		se Teclado.TECLA_A então x := x - 1 * vel fim
+		se Teclado.TECLA_D então x := x + 1 * vel fim
+	fim
 fim
