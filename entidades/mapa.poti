@@ -67,8 +67,6 @@ tipo Mapa
 		
 
 		retorne Colisao(check1, check2, check3, check4)
-
-		# retorne check1 ou check2 ou check3 ou check4
 	fim
 
 	atualizar() fim
