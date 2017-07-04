@@ -1,0 +1,7 @@
+var tempo_antigo = Relógio.milisegundos
+
+calcular_ds (tempo: Inteiro)
+	ds = tempo - tempo_antigo
+	tempo_antigo := tempo
+	retorne ds/100
+fim
