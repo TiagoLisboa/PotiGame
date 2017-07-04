@@ -25,17 +25,50 @@ tipo Mapa
 		fim
 	fim
 
-	checar_posicao (x, y: Real): Inteiro
-		posX = (x / 32).inteiro + 1
-		posY = (y / 32).inteiro * largura
+	checar_posicao (x, y: Real, l, h: Inteiro)
+		var posX = (x / 32).inteiro + 1
+		var posY = (y / 32).inteiro * largura
+		
+		pos1 = posX + posY
 
-		pos = posX + posY
+		posX := ((x + l) / 32).inteiro + 1
+		posY := (y / 32).inteiro * largura
+		
+		pos2 = posX + posY
 
-		se pos > 1 ou pos < largura * altura então
-			retorne foreground[pos]
-		senão
-			retorne 1
+		posX := (x / 32).inteiro + 1
+		posY := ((y + h) / 32).inteiro * largura
+		
+		pos3 = posX + posY
+
+		posX := ((x + l) / 32).inteiro + 1
+		posY := ((y + h)/ 32).inteiro * largura
+		
+		pos4 = posX + posY
+
+		var check1, check2, check3, check4 = falso
+
+		se pos1 > 1 ou pos1 < largura * altura então
+			check1 := foreground[pos1] <> 0
 		fim
+
+		se pos2 > 1 ou pos2 < largura * altura então
+			check2 := foreground[pos2] <> 0
+		fim
+
+		se pos3 > 1 ou pos3 < largura * altura então
+			check3 := foreground[pos3] <> 0
+		fim
+
+		se pos4 > 1 ou pos4 < largura * altura então
+			check4 := foreground[pos4] <> 0
+		fim
+
+		
+
+		retorne Colisao(check1, check2, check3, check4)
+
+		# retorne check1 ou check2 ou check3 ou check4
 	fim
 
 	atualizar() fim

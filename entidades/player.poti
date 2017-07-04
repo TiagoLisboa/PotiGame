@@ -3,7 +3,7 @@ tipo Jogador
 	var largura, altura: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
-	var vel = 5
+	var vel = 50
 
 	iniciar() fim
 
@@ -12,11 +12,26 @@ tipo Jogador
 	fim
 
 	atualizar(ds: Real) 
-		se Teclado.TECLA_W então y := y - (vel * ds) fim
-		se Teclado.TECLA_S então y := y + (vel * ds) fim
-		se Teclado.TECLA_A então x := x - (vel * ds) fim
-		se Teclado.TECLA_D então x := x + (vel * ds) fim
+		var nx = 0.0
+		var ny = 0.0
 
-		escreva mapa.checar_posicao(x, y)
+		se Teclado.TECLA_W então ny := - (vel * ds) fim
+		se Teclado.TECLA_S então ny := (vel * ds) fim
+		se Teclado.TECLA_A então nx := - (vel * ds) fim
+		se Teclado.TECLA_D então nx := (vel * ds) fim
+
+		var colidiu = falso
+		var colisao = mapa.checar_posicao(x+nx, y+ny, largura, altura)
+
+		se 
+			colisao.suldeste == falso e 
+			colisao.suldoeste == falso e 
+			colisao.noroeste == falso e 
+			colisao.nordeste  == falso 
+		então
+			x := x + nx
+			y := y + ny
+		fim
+
 	fim
 fim
