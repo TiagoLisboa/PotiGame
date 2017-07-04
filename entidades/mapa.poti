@@ -25,5 +25,18 @@ tipo Mapa
 		fim
 	fim
 
+	checar_posicao (x, y: Real): Inteiro
+		posX = (x / 32).inteiro + 1
+		posY = (y / 32).inteiro * largura
+
+		pos = posX + posY
+
+		se pos > 1 ou pos < largura * altura então
+			retorne foreground[pos]
+		senão
+			retorne 1
+		fim
+	fim
+
 	atualizar() fim
 fim
