@@ -24,35 +24,5 @@ tipo Mapa
 		fim
 	fim
 
-	checar_posicao (x, y: Real, l, h: Inteiro)
-		var caixa_colisao = Caixa(
-			Ponto(x, y), 
-			Ponto(x + l, y),
-			Ponto(x, y + h),
-			Ponto(x + l, y + h))
-
-		pos = caixa_colisao.get_caixa
-
-		var check = [verdadeiro, verdadeiro, verdadeiro, verdadeiro].mutável
-
-		#escreva "{foreground.tamanho} {largura * altura}"
-
-		para i de 1 até check.tamanho faça
-				posX = (pos[i].x / 32).inteiro + 1
-				posY = (pos[i].y / 32).inteiro * largura
-				pos_ar = posX + posY
-			se 
-				pos_ar >= 1 e pos_ar <= largura * altura e
-				pos[i].x >= 1 e pos[i].x <= largura * 32 e
-				pos[i].y >= 1 e pos[i].y <= altura * 32
-			então
-				check[i] := foreground[pos_ar.inteiro] <> 0
-			fim
-		fim
-		
-
-		retorne Colisao(check[1], check[2], check[3], check[4])
-	fim
-
 	atualizar() fim
 fim
