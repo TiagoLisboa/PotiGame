@@ -1,0 +1,8 @@
+tipo Caixa
+	var noroeste: Ponto
+	var nordeste: Ponto
+	var suldoeste: Ponto
+	var suldeste: Ponto
+
+	get_caixa() = [nordeste, nordeste, suldoeste, suldeste]
+fim
