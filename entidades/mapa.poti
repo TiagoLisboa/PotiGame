@@ -46,27 +46,20 @@ tipo Mapa
 		
 		pos4 = posX + posY
 
-		var check1, check2, check3, check4 = falso
+		pos = [pos1, pos2, pos3, pos4]
 
-		se pos1 > 1 ou pos1 < largura * altura então
-			check1 := foreground[pos1] <> 0
+		var check = [verdadeiro, verdadeiro, verdadeiro, verdadeiro].mutável
+
+		#escreva "{foreground.tamanho} {largura * altura}"
+
+		para i de 1 até check.tamanho faça
+			se pos[i] >= 1 e pos[i] <= largura * altura então
+				check[i] := foreground[pos[i]] <> 0
+			fim
 		fim
-
-		se pos2 > 1 ou pos2 < largura * altura então
-			check2 := foreground[pos2] <> 0
-		fim
-
-		se pos3 > 1 ou pos3 < largura * altura então
-			check3 := foreground[pos3] <> 0
-		fim
-
-		se pos4 > 1 ou pos4 < largura * altura então
-			check4 := foreground[pos4] <> 0
-		fim
-
 		
 
-		retorne Colisao(check1, check2, check3, check4)
+		retorne Colisao(check[1], check[2], check[3], check[4])
 	fim
 
 	atualizar() fim
