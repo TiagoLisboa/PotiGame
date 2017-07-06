@@ -37,6 +37,9 @@ tipo Jogador
 		então
 			x := x + nx
 			y := y + ny
+		senão
+			nx := 0.0
+			ny := 0.0
 		fim
 
 		caixa_colisao := Caixa(
@@ -44,6 +47,8 @@ tipo Jogador
 			Ponto(x + l, y),
 			Ponto(x, y + h),
 			Ponto(x + l, y + h))
+
+		camera.deslocar(nx, ny)
 
 	fim
 fim

@@ -3,11 +3,10 @@ tipo Mapa
 	var background, foreground: Lista[Inteiro]
 	var largura, altura: Inteiro
 	var tiles: Lista[Imagem]
-	var camera: Camera
 
 	desenhar()
-		var x = camera.ox
-		var y = camera.oy
+		var x = ox
+		var y = oy
 		para i de 1 até background.tamanho faça
 			se background[i] <> 0 então
 				tiles[background[i]].desenhe(x, y, 0)
@@ -20,7 +19,7 @@ tipo Mapa
 			x := x + 32
 			se i mod largura == 0 então
 				y := y + 32
-				x := camera.ox
+				x := ox
 			fim
 		fim
 	fim
