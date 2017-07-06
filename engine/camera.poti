@@ -19,10 +19,6 @@ tipo Camera
 			fim
 		fim
 
-		se (px >= ml - 100 e px <= ml + 100) ou (py >= mh - 100 e py <= mh + 100) então
-			
-		fim
-
 		mapa.ox := ox
 		mapa.oy := oy
 	fim
