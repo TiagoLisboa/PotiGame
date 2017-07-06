@@ -1,0 +1,29 @@
+tipo Camera
+	var ox, oy: Real
+	var l, h: Inteiro
+	var mapa: Mapa
+
+	deslocar(dx, dy, px, py: Real)
+		ml = l/2
+		mh = h/2
+
+		se ox - dx <= 0 e ox - dx >= l - (mapa.largura * 32) então
+			se (dx > 0 e (px <= ml + 50 e px >= ml + 30)) ou (dx < 0 e (px >= ml - 50 e px <= ml - 30)) então
+				ox := ox - dx
+			fim
+		fim
+		
+		se oy - dy <= 0 e oy - dy >= h - (mapa.altura * 32) então
+			se (dy > 0 e (py <= mh + 50 e py >= mh + 30)) ou (dy < 0 e (py >= mh - 50 e py <= mh - 30)) então
+				oy := oy - dy
+			fim
+		fim
+
+		se (px >= ml - 100 e px <= ml + 100) ou (py >= mh - 100 e py <= mh + 100) então
+			
+		fim
+
+		mapa.ox := ox
+		mapa.oy := oy
+	fim
+fim
