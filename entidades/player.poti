@@ -3,6 +3,7 @@ tipo Jogador
 	var l, h: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
+	var camera: Camera
 	var vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
@@ -13,7 +14,7 @@ tipo Jogador
 	iniciar() fim
 
 	desenhar() 
-		sprite.desenhe(x, y, 3)
+		sprite.desenhe(x + camera.ox, y + camera.oy, 3)
 	fim
 
 	atualizar(ds: Real) 

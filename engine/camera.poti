@@ -1,12 +1,8 @@
 tipo Camera
-	var mapa: Mapa
-	var jogador: Jogador
 	var ox, oy: Real
 
-	atualizar(ds: Real)
-		mapa.ox := ox
-		mapa.oy := oy
+	deslocar(dx, dy: Real)
+		ox := ox + dx
+		oy := oy + dy
 	fim
-
-	deslocar() fim
 fim
