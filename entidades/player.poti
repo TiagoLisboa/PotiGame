@@ -48,7 +48,7 @@ tipo Jogador
 			Ponto(x, y + h),
 			Ponto(x + l, y + h))
 
-		camera.deslocar(nx, ny)
+		camera.deslocar(nx, ny, x + camera.ox, y + camera.oy)
 
 	fim
 fim
