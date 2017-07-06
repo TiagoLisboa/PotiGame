@@ -1,5 +1,7 @@
 use "jerimum"
 use "engine/utilidades.poti"
+use "engine/ponto.poti"
+use "engine/caixa.poti"
 use "engine/colisao.poti"
 use "entidades/mapa.poti"
 use "entidades/player.poti"
