@@ -4,7 +4,7 @@ tipo Jogador
 	var sprite: Imagem
 	var mapa: Mapa
 	var camera: Camera
-	var vel = 50
+	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
 			Ponto(x + l, y),

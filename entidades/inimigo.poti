@@ -3,8 +3,7 @@ tipo Inimigo
 	var l, h: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
-	var vel = 50
-
+	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
 			Ponto(x + l, y),
@@ -13,13 +12,25 @@ tipo Inimigo
 
 	iniciar() fim
 
+	prox_pos()
+		var teste = [
+			[1, 1],
+			[1, -1],
+			[-1, 1],
+			[-1, -1]
+		]
+
+		retorne teste[aleatório(1,4)]
+	fim
+
 	desenhar() 
 		sprite.desenhe(x, y, 3)
 	fim
 
 	atualizar(ds: Real) 
-		var nx = 0.0
-		var ny = 0.0
+		teste = prox_pos
+		var nx = 0.0 + teste[1]
+		var ny = 0.0 + teste[2]
 
 		var colidiu = caixa_colisao.checar_posicao(mapa, Caixa(
 			Ponto(x + nx, y + ny), 

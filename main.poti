@@ -6,6 +6,7 @@ use "engine/colisao.poti"
 use "engine/camera.poti"
 use "entidades/mapa.poti"
 use "entidades/player.poti"
+use "entidades/inimigo.poti"
 
 mapa1 = Mapa(
 	0, 0,
@@ -19,15 +20,19 @@ camera = Camera(0.0, 0.0, 640, 480, mapa1)
 
 player = Jogador(2, 2, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[3], mapa1, camera)
 
+inimigo = Inimigo(200, 50, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1)
+
 
 atualize()
 	ds = calcular_ds (Relogio.milisegundos)
 	player.atualizar(ds)
+	inimigo.atualizar(ds)
 fim
 
 desenhe()
 	mapa1.desenhar()
 	player.desenhar()
+	inimigo.desenhar()
 fim
 
 jogo.iniciar("Título", 640, 480, atualize, desenhe, 1000)

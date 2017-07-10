@@ -4,8 +4,6 @@ tipo Caixa
 	var suldoeste: Ponto
 	var suldeste: Ponto
 
-	get_caixa() = [noroeste, nordeste, suldoeste, suldeste]
-
 	checar_posicao (mapa: Mapa, simu: Caixa)
 		var colidiu := verdadeiro
 		pos = [simu.noroeste, simu.nordeste, simu.suldoeste, simu.suldeste]
