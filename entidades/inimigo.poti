@@ -1,0 +1,47 @@
+tipo Inimigo
+	var x, y: Real
+	var l, h: Inteiro
+	var sprite: Imagem
+	var mapa: Mapa
+	var vel = 50
+
+	var caixa_colisao = Caixa(
+			Ponto(x, y), 
+			Ponto(x + l, y),
+			Ponto(x, y + h),
+			Ponto(x + l, y + h))
+
+	iniciar() fim
+
+	desenhar() 
+		sprite.desenhe(x, y, 3)
+	fim
+
+	atualizar(ds: Real) 
+		var nx = 0.0
+		var ny = 0.0
+
+		var colidiu = caixa_colisao.checar_posicao(mapa, Caixa(
+			Ponto(x + nx, y + ny), 
+			Ponto(x + nx + l, y + ny),
+			Ponto(x + nx, y + ny + h),
+			Ponto(x + nx + l, y + ny + h)))
+
+		se 
+			colidiu == falso
+		então
+			x := x + nx
+			y := y + ny
+		senão
+			nx := 0.0
+			ny := 0.0
+		fim
+
+		caixa_colisao := Caixa(
+			Ponto(x, y), 
+			Ponto(x + l, y),
+			Ponto(x, y + h),
+			Ponto(x + l, y + h))
+
+	fim
+fim
