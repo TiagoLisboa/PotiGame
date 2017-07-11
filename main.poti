@@ -20,19 +20,28 @@ camera = Camera(0.0, 0.0, 640, 480, mapa1)
 
 player = Jogador(2, 2, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[3], mapa1, camera)
 
-inimigo = Inimigo(200, 50, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1)
+inimigos = [
+	Inimigo(200, 50, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1),
+	Inimigo(200, 50, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1)
+	]
 
 
 atualize()
 	ds = calcular_ds (Relogio.milisegundos)
 	player.atualizar(ds)
-	inimigo.atualizar(ds)
+
+	para i em inimigos faça
+		i.atualizar(ds)
+	fim
 fim
 
 desenhe()
 	mapa1.desenhar()
 	player.desenhar()
-	inimigo.desenhar()
+	
+	para i em inimigos faça
+		i.desenhar()
+	fim
 fim
 
 jogo.iniciar("Título", 640, 480, atualize, desenhe, 1000)
