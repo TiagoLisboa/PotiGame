@@ -20,7 +20,7 @@ camera = Camera(0.0, 0.0, 640, 480, mapa1)
 
 inimigos = [
 #	Inimigo(200, 50, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1),
-	Inimigo(200, 100, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1)
+	Inimigo(200, 100, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[4], mapa1, camera)
 	]
 
 player = Jogador(2, 2, 32, 32, Imagem("assets/tileset.png").fatie(32, 32)[3], mapa1, camera, inimigos)

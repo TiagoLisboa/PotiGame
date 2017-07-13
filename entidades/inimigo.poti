@@ -3,6 +3,7 @@ tipo Inimigo
 	var l, h: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
+	var camera: Camera
 	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
@@ -44,7 +45,7 @@ tipo Inimigo
 	fim
 
 	desenhar() 
-		sprite.desenhe(x, y, 3)
+		sprite.desenhe(x + camera.ox, y + camera.oy, 3)
 	fim
 
 	atualizar(ds: Real, player: Jogador) 
