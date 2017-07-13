@@ -4,7 +4,7 @@ tipo Caixa
 	var suldoeste: Ponto
 	var suldeste: Ponto
 
-	get_caixa() = [noroeste, nordeste, suldoeste, suldeste]
+	get_caixa()=[nordeste, noroeste, suldeste, suldoeste]
 
 	checar_posicao (mapa: Mapa, simu: Caixa)
 		var colidiu := verdadeiro
