@@ -31,7 +31,7 @@ atualize()
 	player.atualizar(ds)
 
 	para i em inimigos faça
-		# i.atualizar(ds)
+		i.atualizar(ds, player)
 	fim
 fim
 

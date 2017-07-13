@@ -47,7 +47,7 @@ tipo Inimigo
 		sprite.desenhe(x, y, 3)
 	fim
 
-	atualizar(ds: Real) 
+	atualizar(ds: Real, player: Jogador) 
 		teste = prox_pos
 		var nx = 0.0 + teste[1]
 		var ny = 0.0 + teste[2]
@@ -57,6 +57,14 @@ tipo Inimigo
 			Ponto(x + nx + l, y + ny),
 			Ponto(x + nx, y + ny + h),
 			Ponto(x + nx + l, y + ny + h)))
+
+		se colidiu == falso então
+			colidiu := player.checar_colisao(Caixa(
+											Ponto(x + nx, y + ny), 
+											Ponto(x + nx + l, y + ny),
+											Ponto(x + nx, y + ny + h),
+											Ponto(x + nx + l, y + ny + h)))
+		fim
 
 		se 
 			colidiu == falso
