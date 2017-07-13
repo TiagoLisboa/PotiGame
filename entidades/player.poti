@@ -42,10 +42,10 @@ tipo Jogador
 		var nx = 0.0
 		var ny = 0.0
 
-		se Teclado.TECLA_W então ny := - (vel * ds) fim
-		se Teclado.TECLA_S então ny := (vel * ds) fim
-		se Teclado.TECLA_A então nx := - (vel * ds) fim
-		se Teclado.TECLA_D então nx := (vel * ds) fim
+		se Teclado.TECLA_W então ny := - (vel * ds)
+		senãose Teclado.TECLA_S então ny := (vel * ds)
+		senãose Teclado.TECLA_A então nx := - (vel * ds)
+		senãose Teclado.TECLA_D então nx := (vel * ds) fim
 
 		var colidiu = caixa_colisao.checar_posicao(mapa, Caixa(
 			Ponto(x + nx, y + ny), 
