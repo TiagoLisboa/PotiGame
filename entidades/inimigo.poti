@@ -12,6 +12,26 @@ tipo Inimigo
 
 	iniciar() fim
 
+	checar_colisao(box: Caixa)
+		var retorno = falso
+		para i em box.get_caixa faça
+			se 
+				i.x > caixa_colisao.noroeste.x e
+				i.x < caixa_colisao.nordeste.x e
+				i.x > caixa_colisao.suldoeste.x e
+				i.x < caixa_colisao.suldeste.x e
+				i.y > caixa_colisao.noroeste.y e
+				i.y > caixa_colisao.nordeste.y e
+				i.y < caixa_colisao.suldoeste.y e
+				i.y < caixa_colisao.suldeste.y
+			então
+				retorno := verdadeiro
+			fim
+		fim
+
+		retorne retorno
+	fim
+
 	prox_pos()
 		var teste = [
 			[1, 1],
