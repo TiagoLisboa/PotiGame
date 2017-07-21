@@ -4,6 +4,7 @@ tipo Inimigo
 	var sprite: Imagem
 	var mapa: Mapa
 	var camera: Camera
+
 	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
@@ -11,7 +12,10 @@ tipo Inimigo
 			Ponto(x, y + h),
 			Ponto(x + l, y + h))
 
-	iniciar() fim
+	iniciar() 
+		ia = Astar(Ponto(10,10), Ponto(1, 1), mapa)
+		escreva ia.encontra_rota()
+	fim
 
 	checar_colisao(box: Caixa)
 		var retorno = falso
