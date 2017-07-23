@@ -5,6 +5,7 @@ tipo Jogador
 	var mapa: Mapa
 	var camera: Camera
 	#var inimigos: Lista[Inimigo]
+	var venceu = falso
 	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
@@ -47,11 +48,14 @@ tipo Jogador
 		senãose Teclado.TECLA_A então nx := - (vel * ds)
 		senãose Teclado.TECLA_D então nx := (vel * ds) fim
 
-		var colidiu = caixa_colisao.checar_posicao(mapa, Caixa(
+		var teste = caixa_colisao.checar_posicao(mapa, Caixa(
 			Ponto(x + nx, y + ny), 
 			Ponto(x + nx + l, y + ny),
 			Ponto(x + nx, y + ny + h),
 			Ponto(x + nx + l, y + ny + h)))
+
+		var colidiu = teste[1]
+		venceu := teste[2]
 
 		se 
 			colidiu == falso

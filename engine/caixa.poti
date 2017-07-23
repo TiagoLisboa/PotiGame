@@ -7,6 +7,7 @@ tipo Caixa
 	get_caixa()=[nordeste, noroeste, suldeste, suldoeste]
 
 	checar_posicao (mapa: Mapa, simu: Caixa)
+		var venceu := falso
 		var colidiu := verdadeiro
 		pos = [simu.noroeste, simu.nordeste, simu.suldoeste, simu.suldeste]
 
@@ -23,7 +24,8 @@ tipo Caixa
 				pos[i].x >= 1 e pos[i].x <= mapa.largura * 32 e
 				pos[i].y >= 1 e pos[i].y <= mapa.altura * 32
 			então
-				check[i] := mapa.foreground[pos_ar.inteiro] <> 0
+				check[i] := mapa.foreground[pos_ar.inteiro] == 2
+				venceu := mapa.foreground[pos_ar.inteiro] == 3
 			fim
 		fim
 
@@ -40,6 +42,6 @@ tipo Caixa
 			colidiu := falso
 		fim
 
-		retorne colidiu
+		retorne [colidiu, venceu]
 	fim
 fim

@@ -29,7 +29,7 @@ contador = Timer(10.0, 15.0, 300.0)
 
 
 atualize()
-	se contador.tempo > 0 então
+	se contador.tempo > 0 e player.venceu == falso então
 		ds = calcular_ds (Relogio.milisegundos)
 		player.atualizar(ds)
 		contador.atualizar(ds)
@@ -43,7 +43,9 @@ desenhe()
 	player.desenhar()
 	contador.desenhar(f)
 
-	se contador.tempo <= 0 então
+	se player.venceu então
+		fg.desenhe_centralizado("Você venceu", 640/2, 480/2, 5, Cor.MAGENTA)
+	senãose contador.tempo <= 0 então
 		fg.desenhe_centralizado("Nós Perdemos", 640/2, 480/2, 5, Cor.MAGENTA)
 	fim
 fim
