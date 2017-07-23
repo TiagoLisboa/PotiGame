@@ -4,7 +4,7 @@ tipo Jogador
 	var sprite: Imagem
 	var mapa: Mapa
 	var camera: Camera
-	var inimigos: Lista[Inimigo]
+	#var inimigos: Lista[Inimigo]
 	vel = 50
 	var caixa_colisao = Caixa(
 			Ponto(x, y), 
@@ -52,18 +52,6 @@ tipo Jogador
 			Ponto(x + nx + l, y + ny),
 			Ponto(x + nx, y + ny + h),
 			Ponto(x + nx + l, y + ny + h)))
-
-		se colidiu == falso então
-			para i em inimigos faça
-				se colidiu == falso então
-					colidiu := i.checar_colisao(Caixa(
-													Ponto(x + nx, y + ny), 
-													Ponto(x + nx + l, y + ny),
-													Ponto(x + nx, y + ny + h),
-													Ponto(x + nx + l, y + ny + h)))
-				fim
-			fim
-		fim
 
 		se 
 			colidiu == falso
