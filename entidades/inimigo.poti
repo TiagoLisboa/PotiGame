@@ -5,8 +5,6 @@ tipo Inimigo
 	var mapa: Mapa
 	var camera: Camera
 	var ipath = Lista(0, AstarNode(-1, -1, -1, -1, -1, -1))
-	var oldx = x
-	var oldy = y
 
 	var counter := 0
 
@@ -45,24 +43,16 @@ tipo Inimigo
 
 	prox_pos()
 		se ipath.tamanho > 1 então
-			var tx = ipath[1].x*32 - x
-			var ty = ipath[1].y*32 - y
-
-			desx = oldx - x
-			desy = oldy - y
-
-			se (desx == 0 e desy == 0) então
-				#escreva ipath
-			fim
-
-			tx := se tx < (-0.1) então -1 senãose tx > 0.1 então 1 senão 0 fim
-			ty := se ty < (-0.1) então -1 senãose ty > 0.1 então 1 senão 0 fim
+			var tx = ipath[1].x - ((x/32).inteiro + 1)
+			var ty = ipath[1].y - ((y/32).inteiro + 1)
 
 			se tx == 0 e ty == 0 então
 				ipath := ipath.descarte(1)
+				tx := ipath[1].x - ((x/32).inteiro + 1)
+				ty := ipath[1].y - ((y/32).inteiro + 1)
 			fim
 
-			retorne [tx.inteiro, ty.inteiro]
+			retorne [tx, ty]
 		senão
 			retorne [0, 0]
 		fim
@@ -75,14 +65,11 @@ tipo Inimigo
 	atualizar(ds: Real, player: Jogador)
 		counter := counter - 1
 		se counter < 1 então
-			counter := 500
+			counter := 100
 			atualizar_path(player.x, player.y)
 		fim
 
 		teste = prox_pos
-		oldx := x
-		oldy := y
-		#escreva teste
 		var nx = 0.0 + teste[1] * ds * ivel
 		var ny = 0.0 + teste[2] * ds * ivel
 
