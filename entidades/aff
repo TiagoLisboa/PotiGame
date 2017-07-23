@@ -1,0 +1,11 @@
+se colidiu == falso então
+			para i em inimigos faça
+				se colidiu == falso então
+					colidiu := i.checar_colisao(Caixa(
+													Ponto(x + nx, y + ny), 
+													Ponto(x + nx + l, y + ny),
+													Ponto(x + nx, y + ny + h),
+													Ponto(x + nx + l, y + ny + h)))
+				fim
+			fim
+		fim

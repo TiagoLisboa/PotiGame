@@ -4,6 +4,20 @@ tipo Mapa
 	var largura, altura: Inteiro
 	var tiles: Lista[Imagem]
 
+
+	foreground_para_matriz()
+		var linha = Lista(0, 0)
+		var matriz = Lista(0, Lista(0,0))
+		para i de 1 até foreground.tamanho faça
+			linha := linha + [foreground[i]]
+			se i mod largura == 0 então
+				matriz := matriz + [linha]
+				linha := Lista(0, 0)
+			fim
+		fim
+		retorne matriz
+	fim
+
 	desenhar()
 		var x = ox
 		var y = oy
