@@ -65,7 +65,6 @@ tipo Astar
 			var current_node := open_nodes[best_node]
 
 			se (current_node.x == dest_node.x) e (current_node.y == dest_node.y) então
-				escreva "-------------------------------"
 				#escreva closed_nodes
 				path := [dest_node]
 
@@ -88,7 +87,7 @@ tipo Astar
 				vx		= visinho[1]
 				vy		= visinho[2]
 
-				se passable(vx, vy) == verdadeiro e (mapam[vx][vy] == 0 ou (vx == dest_node.x e vy == dest_node.y)) então
+				se passable(vx, vy) == verdadeiro e (mapam[vy][vx] == 0 ou (vx == dest_node.x e vy == dest_node.y)) então
 					var in_closed := falso
 					para j de 1 até closed_nodes.tamanho faça
 						closed_node = closed_nodes[j]
