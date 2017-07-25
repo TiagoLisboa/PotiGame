@@ -5,3 +5,10 @@ calcular_ds (tempo: Inteiro)
 	tempo_antigo := tempo
 	retorne ds/100
 fim
+
+ler_lista_inteiro(arq: Texto) =	Arquivo.leia(arq)
+         .junte(" ")
+	       .passe_enquanto(_ == '[')
+				 .pegue_enquanto(_ <> ']')
+				 .divida(", ")
+				 .mapeie(_.inteiro)

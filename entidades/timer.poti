@@ -1,5 +1,5 @@
 tipo Timer
-	var x, y: Real
+	x, y: Real
 	var tempo: Real
 
 	atualizar(ds: Real)
@@ -7,6 +7,6 @@ tipo Timer
 	fim
 
 	desenhar(f: Fonte)
-	f.desenhe("Tempo: {tempo formato "%.0f"}", x, y, 5, Cor.AMARELO)
+	  f.desenhe("Tempo: {tempo formato "%.0f"}", x, y, 5, Cor.AMARELO)
 	fim
 fim
