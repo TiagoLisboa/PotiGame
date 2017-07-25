@@ -1,17 +1,21 @@
 tipo Caixa
-  var x, y, l, h: Real
-	noroeste =  Ponto(x, y)
-	nordeste =  Ponto(x + l , y)
-	suldoeste = Ponto(x, y + h)
-	suldeste = Ponto(x + l, y + h)
+  # construtor
+  x, y, l, h: Real
 
-	get_caixa()=[nordeste, noroeste, suldeste, suldoeste]
+	# atributos
+	noroeste  = Ponto(x, y)
+	nordeste  = Ponto(x + l , y)
+	suldoeste = Ponto(x, y + h)
+	suldeste  = Ponto(x + l, y + h)
+
+  # metodos
+	pontos = [nordeste, noroeste, suldeste, suldoeste]
 
 	checar_posicao (mapa: Mapa, simu: Caixa)
 		var venceu := falso
-		pos = [simu.noroeste, simu.nordeste, simu.suldoeste, simu.suldeste]
+		pos = simu.pontos
 
-		var check = [verdadeiro, verdadeiro, verdadeiro, verdadeiro].mutável
+		var check = Lista.mutável(4, verdadeiro)
 
 		para i de 1 até check.tamanho faça
 				posX = (pos[i].x / 32).inteiro + 1
@@ -31,4 +35,12 @@ tipo Caixa
 
 		retorne Tupla(colisao.colidiu, venceu)
 	fim
+
+	checar_colisao(caixa: Caixa) = (para p em caixa.pontos gere
+				p.x > noroeste.x  e p.x < nordeste.x e
+				p.x > suldoeste.x e p.x < suldeste.x e
+				p.y > noroeste.y  e p.y > nordeste.y e
+				p.y < suldoeste.y e p.y < suldeste.y
+			fim).injete(falso)(_ ou _)
+
 fim
