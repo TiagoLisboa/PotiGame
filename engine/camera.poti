@@ -1,22 +1,20 @@
 tipo Camera
+  # construtor
 	var ox, oy: Real
-	var l, h: Inteiro
-	var mapa: Mapa
+	l, h: Inteiro
+	mapa: Mapa
 
+  # metodos
 	deslocar(dx, dy, px, py: Real)
-		ml = l/2
-		mh = h/2
+		check(o, d, p, m: Real, tam: Inteiro) = o - d <= 0 e o - d >= l - (tam * 32) e (
+			 (d > 0 e (p <= m + 50 e p >= m + 30)) ou (d < 0 e (p >= m - 50 e p <= m - 30)))
 
-		se ox - dx <= 0 e ox - dx >= l - (mapa.largura * 32) então
-			se (dx > 0 e (px <= ml + 50 e px >= ml + 30)) ou (dx < 0 e (px >= ml - 50 e px <= ml - 30)) então
-				ox := ox - dx
-			fim
+		se check(ox, dx, px, l / 2, mapa.largura) então
+			ox := ox - dx
 		fim
-		
-		se oy - dy <= 0 e oy - dy >= h - (mapa.altura * 32) então
-			se (dy > 0 e (py <= mh + 50 e py >= mh + 30)) ou (dy < 0 e (py >= mh - 50 e py <= mh - 30)) então
-				oy := oy - dy
-			fim
+
+		se check(oy, dy, px, h / 2, mapa.altura) então
+			oy := oy - dy
 		fim
 
 		mapa.ox := ox
