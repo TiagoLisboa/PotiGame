@@ -16,12 +16,15 @@ tipo Mapa
 		para i de 1 até background.tamanho faça
       x = ((i - 1) mod largura) * 32 - camera.ox
 			y = ((i - 1) div largura) * 32 - camera.oy
-			se background[i] <> 0 então
-				tiles[background[i]].desenhe(x, y, 0)
-			fim
+			# desenhar só o que for visível
+			se x > (-32) e x < 640 e y > (-32) e y < 480 então
+  			se background[i] <> 0 então
+	  			tiles[background[i]].desenhe(x, y, 0)
+		  	fim
 
-			se foreground[i] <> 0 então
-				tiles[foreground[i]].desenhe(x, y, 1)
+	  		se foreground[i] <> 0 então
+		  		tiles[foreground[i]].desenhe(x, y, 1)
+			  fim
 			fim
 		fim
 	fim

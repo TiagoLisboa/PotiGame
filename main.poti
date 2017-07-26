@@ -17,7 +17,6 @@ foreground = ler_lista_inteiro("assets/foreground.txt")
 
 imagens   = Imagem("assets/tileset.png").fatie(32, 32)
 labirinto = Mapa(background, foreground, 50, 50, imagens)
-# camera    = Camera(0.0, 0.0, 640, 480, labirinto)
 player    = Jogador(50, 50, 32, 32, imagens[3], labirinto)
 contador  = Timer(10.0, 15.0, 300.0)
 camera    = Camera(640, 480, player)
@@ -44,4 +43,4 @@ desenhe()
 	fim
 fim
 
-jogo.iniciar("Labirinto", 640, 480, atualize, desenhe, 30)
+jogo.iniciar("Labirinto", 640, 480, atualize, desenhe)
