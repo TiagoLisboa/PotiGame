@@ -27,7 +27,7 @@ tipo Caixa
 				pos[i].y >= 1 e pos[i].y <= mapa.altura * 32
 			então
 				check[i] := mapa.foreground[pos_ar.inteiro] == 2
-				venceu := mapa.foreground[pos_ar.inteiro] == 3
+				venceu := se mapa.foreground[pos_ar.inteiro] == 3 então verdadeiro senão venceu fim
 			fim
 		fim
 
