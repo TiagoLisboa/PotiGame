@@ -1,0 +1,12 @@
+tipo Camera
+  # construtor
+	l, h: Inteiro
+	jogador: Jogador
+
+  # metodos
+	maior(a, b: Real) = se a > b então a senão b fim
+	menor(a, b: Real) = se a > b então b senão a fim
+
+	ox() = menor(maior(jogador.x - 320, 0), l * 32 - 640)
+  	oy() = menor(maior(jogador.y - 240, 0), h * 32 - 480)
+fim

@@ -1,0 +1,46 @@
+tipo Caixa
+  # construtor
+  x, y, l, h: Real
+
+	# atributos
+	noroeste  = Ponto(x, y)
+	nordeste  = Ponto(x + l , y)
+	suldoeste = Ponto(x, y + h)
+	suldeste  = Ponto(x + l, y + h)
+
+  # metodos
+	pontos = [nordeste, noroeste, suldeste, suldoeste]
+
+	checar_posicao (mapa: Mapa, simu: Caixa)
+		var venceu := falso
+		pos = simu.pontos
+
+		var check = Lista.mutável(4, verdadeiro)
+
+		para i de 1 até check.tamanho faça
+				posX = (pos[i].x / 32).inteiro + 1
+				posY = (pos[i].y / 32).inteiro * mapa.largura
+				pos_ar = posX + posY
+			se
+				pos_ar >= 1 e pos_ar <= mapa.largura * mapa.altura e
+				pos[i].x >= 1 e pos[i].x <= mapa.largura * 32 e
+				pos[i].y >= 1 e pos[i].y <= mapa.altura * 32
+			então
+				check[i] := mapa.foreground[pos_ar.inteiro] == 2
+				venceu := venceu ou mapa.foreground[pos_ar.inteiro] == 3
+			fim
+		fim
+
+		colisao = Colisao(check[1], check[2], check[3], check[4])
+
+		retorne Tupla(colisao.colidiu, venceu)
+	fim
+
+	checar_colisao(caixa: Caixa) = (para p em caixa.pontos gere
+				p.x > noroeste.x  e p.x < nordeste.x e
+				p.x > suldoeste.x e p.x < suldeste.x e
+				p.y > noroeste.y  e p.y > nordeste.y e
+				p.y < suldoeste.y e p.y < suldeste.y
+			fim).injete(falso)(_ ou _)
+
+fim

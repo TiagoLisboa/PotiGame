@@ -1,0 +1,3 @@
+tipo Ponto
+	x, y: Real
+fim

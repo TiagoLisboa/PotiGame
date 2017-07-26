@@ -1,0 +1,14 @@
+var tempo_antigo = Relógio.milisegundos
+
+calcular_ds (tempo: Inteiro)
+	ds = tempo - tempo_antigo
+	tempo_antigo := tempo
+	retorne ds/100
+fim
+
+ler_lista_inteiro(arq: Texto) =	Arquivo.leia(arq)
+         .junte(" ")
+	       .descarte_enquanto(_ == '[')
+				 .pegue_enquanto(_ <> ']')
+				 .divida(", ")
+				 .mapeie(_.inteiro)

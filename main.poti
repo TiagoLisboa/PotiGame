@@ -1,0 +1,59 @@
+use "jerimum"
+
+use "engine/utilidades.poti"
+use "engine/ponto.poti"
+use "engine/caixa.poti"
+use "engine/colisao.poti"
+use "engine/camera.poti"
+
+use "entidades/mapa.poti"
+use "entidades/player.poti"
+use "entidades/timer.poti"
+use "entidades/menu.poti"
+
+f = Fonte(16)
+fg = Fonte(30)
+background = ler_lista_inteiro("assets/background.txt")
+foreground = ler_lista_inteiro("assets/foreground.txt")
+
+menu_inicar = Menu("Iniciar", ["Novo Jogo", "Ir para casa"], 1)
+
+tileset   = Imagem("assets/tiles.png").fatie(32, 32)
+spritesheet = Imagem("assets/Sprites.png").fatie(32, 32)
+labirinto = Mapa(background, foreground, 50, 50, tileset)
+player    = Jogador(50, 50, 32, 32, spritesheet, labirinto)
+contador  = Timer(10.0, 15.0, 300.0)
+camera    = Camera(640, 480, player)
+
+atualize()
+	se menu_inicar.fez_algo == 1 então
+		se contador.tempo > 0 e não player.venceu então
+			ds = calcular_ds(Relogio.milisegundos)
+			player.atualizar(ds)
+			contador.atualizar(ds)
+		senão
+			contador.tempo := 0.0
+		fim
+	senão
+		menu_inicar.atualizar
+
+	fim
+fim
+
+desenhe()
+	se menu_inicar.fez_algo == 1 então
+		labirinto.desenhar(camera)
+		player.desenhar(camera)
+		contador.desenhar(f)
+
+		se player.venceu então
+			fg.desenhe_centralizado("Você venceu", 640/2, 480/2, 5, Cor.MAGENTA)
+		senãose contador.tempo <= 0 então
+			fg.desenhe_centralizado("Nós Perdemos", 640/2, 480/2, 5, Cor.MAGENTA)
+		fim
+	senão
+		menu_inicar.desenhar()
+	fim
+fim
+
+jogo.iniciar("Labirinto", 640, 480, atualize, desenhe)

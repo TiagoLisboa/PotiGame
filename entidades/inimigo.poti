@@ -1,0 +1,107 @@
+tipo Inimigo
+	var x, y: Real
+	var l, h: Inteiro
+	var sprite: Imagem
+	var mapa: Mapa
+	var camera: Camera
+	var ipath = Lista(0, AstarNode(-1, -1, -1, -1, -1, -1))
+
+	var counter := 0
+
+	ivel = 10
+
+	var caixa_colisao = Caixa(
+			Ponto(x, y), 
+			Ponto(x + l, y),
+			Ponto(x, y + h),
+			Ponto(x + l, y + h))
+
+	atualizar_path(px, py: Real)
+		ia = Astar(Ponto((x/32).inteiro + 1, (y/32).inteiro + 1), Ponto((px/32).inteiro + 1, (py/32).inteiro + 1), mapa)
+		ipath := ia.encontra_rota()
+	fim
+
+	checar_colisao(box: Caixa)
+		var retorno = falso
+		para i em box.get_caixa faça
+			se 
+				i.x > caixa_colisao.noroeste.x e
+				i.x < caixa_colisao.nordeste.x e
+				i.x > caixa_colisao.suldoeste.x e
+				i.x < caixa_colisao.suldeste.x e
+				i.y > caixa_colisao.noroeste.y e
+				i.y > caixa_colisao.nordeste.y e
+				i.y < caixa_colisao.suldoeste.y e
+				i.y < caixa_colisao.suldeste.y
+			então
+				retorno := verdadeiro
+			fim
+		fim
+
+		retorne retorno
+	fim
+
+	prox_pos()
+		se ipath.tamanho > 1 então
+			var tx = ipath[1].x - ((x/32).inteiro + 1)
+			var ty = ipath[1].y - ((y/32).inteiro + 1)
+
+			se tx == 0 e ty == 0 então
+				ipath := ipath.descarte(1)
+				tx := ipath[1].x - ((x/32).inteiro + 1)
+				ty := ipath[1].y - ((y/32).inteiro + 1)
+			fim
+
+			retorne [tx, ty]
+		senão
+			retorne [0, 0]
+		fim
+	fim
+
+	desenhar() 
+		sprite.desenhe(x + camera.ox, y + camera.oy, 3)
+	fim
+
+	atualizar(ds: Real, player: Jogador)
+		counter := counter - 1
+		se counter < 1 então
+			counter := 100
+			atualizar_path(player.x, player.y)
+		fim
+
+		teste = prox_pos
+		var nx = 0.0 + teste[1] * ds * ivel
+		var ny = 0.0 + teste[2] * ds * ivel
+
+		var colidiu = caixa_colisao.checar_posicao(mapa, Caixa(
+			Ponto(x + nx, y + ny), 
+			Ponto(x + nx + l, y + ny),
+			Ponto(x + nx, y + ny + h),
+			Ponto(x + nx + l, y + ny + h)))
+
+		se colidiu == falso então
+			colidiu := player.checar_colisao(Caixa(
+											Ponto(x + nx, y + ny), 
+											Ponto(x + nx + l, y + ny),
+											Ponto(x + nx, y + ny + h),
+											Ponto(x + nx + l, y + ny + h)))
+		fim
+
+		se 
+			colidiu == falso
+		então
+			x := x + nx
+			y := y + ny
+		senão
+			nx := 0.0
+			ny := 0.0
+		fim
+
+		caixa_colisao := Caixa(
+			Ponto(x, y), 
+			Ponto(x + l, y),
+			Ponto(x, y + h),
+			Ponto(x + l, y + h))
+
+	fim
+fim

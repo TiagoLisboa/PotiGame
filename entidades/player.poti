@@ -1,0 +1,75 @@
+tipo Jogador
+  # construtor
+	var x, y: Real
+	var l, h: Inteiro
+	var sprite: Lista[Imagem]
+	var mapa: Mapa
+
+	# atributos
+	parado = sprite[1]
+	var deslocando = falso
+	var dir_desl = 0
+	var venceu = falso
+	vel = 30
+	var caixa_colisao := Caixa(x, y, l, h)
+	var sprite_c = 1
+	var ns = 1
+
+  # metodos
+	init = para i de 1 até 1 faça iniciar() fim
+	iniciar() fim
+
+	checar_colisao(box: Caixa) = box.checar_colisao(caixa_colisao)
+
+	desenhar(camera: Camera)
+		se deslocando == falso então
+			parado.desenhe(x - camera.ox, y - camera.oy, 3, 90*dir_desl-90)
+			sprite_c := 1
+			ns := 1
+		senão
+			ns := ns + 1
+			se ns == 10 então
+				ns := 1
+				sprite_c := se sprite_c == 4 então 1 senão sprite_c + 1 fim
+			fim
+			sprite[sprite_c].desenhe(x - camera.ox, y - camera.oy, 3, 90*dir_desl-90)
+		fim
+	fim
+
+	atualizar(ds: Real)
+		var nx = 0.0
+		var ny = 0.0
+
+		deslocando := falso
+
+		se Teclado.TECLA_W então 
+			ny := - (vel * ds)
+			deslocando := verdadeiro
+			dir_desl := 3
+		senãose Teclado.TECLA_S então 
+			ny := (vel * ds)
+			deslocando := verdadeiro
+			dir_desl := 1
+		senãose Teclado.TECLA_A então 
+			nx := - (vel * ds)
+			deslocando := verdadeiro
+			dir_desl := 2
+		senãose Teclado.TECLA_D então 
+			nx := (vel * ds) 
+			deslocando := verdadeiro
+			dir_desl := 4
+		fim
+
+		teste = caixa_colisao.checar_posicao(mapa, Caixa(x + nx, y + ny, l, h))
+
+		colidiu = teste.primeiro
+		venceu := teste.segundo
+
+		se não colidiu então
+			x := x + nx
+  		y := y + ny
+		fim
+
+		caixa_colisao := Caixa(x, y, l, h)
+	fim
+fim

@@ -1,0 +1,8 @@
+tipo Colisao
+	var noroeste: Logico
+	var nordeste: Logico
+	var suldoeste: Logico
+	var suldeste: Logico
+
+	colidiu() = noroeste ou nordeste ou suldoeste ou suldeste
+fim
