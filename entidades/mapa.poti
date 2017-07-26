@@ -1,39 +1,30 @@
-tipo Mapa 
-	var ox, oy : Real
-	var background, foreground: Lista[Inteiro]
-	var largura, altura: Inteiro
-	var tiles: Lista[Imagem]
+tipo Mapa
+  # construtor
+	background, foreground: Lista[Inteiro]
+	largura, altura: Inteiro
+	tiles: Lista[Imagem]
 
-
-	foreground_para_matriz()
-		var linha = Lista(0, 0)
-		var matriz = Lista(0, Lista(0,0))
-		para i de 1 até foreground.tamanho faça
-			linha := linha + [foreground[i]]
-			se i mod largura == 0 então
-				matriz := matriz + [linha]
-				linha := Lista(0, 0)
+  # metodos
+	foreground_para_matriz() =
+		para i de 0 até altura - 1 gere
+		  para j de 0 até largura - 1 gere
+			  foreground[i * largura + j + 1]
 			fim
 		fim
-		retorne matriz
-	fim
 
-	desenhar()
-		var x = ox
-		var y = oy
+	desenhar(camera: Camera)
 		para i de 1 até background.tamanho faça
-			se background[i] <> 0 então
-				tiles[background[i]].desenhe(x, y, 0)
-			fim
+      x = ((i - 1) mod largura) * 32 - camera.ox
+			y = ((i - 1) div largura) * 32 - camera.oy
+			# desenhar só o que for visível
+			se x > (-32) e x < 640 e y > (-32) e y < 480 então
+  			se background[i] <> 0 então
+	  			tiles[background[i]].desenhe(x, y, 0)
+		  	fim
 
-			se foreground[i] <> 0 então
-				tiles[foreground[i]].desenhe(x, y, 1)
-			fim
-
-			x := x + 32
-			se i mod largura == 0 então
-				y := y + 32
-				x := ox
+	  		se foreground[i] <> 0 então
+		  		tiles[foreground[i]].desenhe(x, y, 1)
+			  fim
 			fim
 		fim
 	fim

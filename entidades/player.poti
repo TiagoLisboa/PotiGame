@@ -1,79 +1,45 @@
 tipo Jogador
+  # construtor
 	var x, y: Real
 	var l, h: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
-	var camera: Camera
 	#var inimigos: Lista[Inimigo]
+
+	# atributos
 	var venceu = falso
 	vel = 50
-	var caixa_colisao = Caixa(
-			Ponto(x, y), 
-			Ponto(x + l, y),
-			Ponto(x, y + h),
-			Ponto(x + l, y + h))
+	var caixa_colisao := Caixa(x, y, l, h)
 
+  # metodos
+	init = para i de 1 até 1 faça iniciar() fim
 	iniciar() fim
 
-	checar_colisao(box: Caixa)
-		var retorno = falso
-		para i em box.get_caixa faça
-			se 
-				i.x > caixa_colisao.noroeste.x e
-				i.x < caixa_colisao.nordeste.x e
-				i.x > caixa_colisao.suldoeste.x e
-				i.x < caixa_colisao.suldeste.x e
-				i.y > caixa_colisao.noroeste.y e
-				i.y > caixa_colisao.nordeste.y e
-				i.y < caixa_colisao.suldoeste.y e
-				i.y < caixa_colisao.suldeste.y
-			então
-				retorno := verdadeiro
-			fim
-		fim
+	checar_colisao(box: Caixa) = box.checar_colisao(caixa_colisao)
 
-		retorne retorno
+	desenhar(camera: Camera)
+		sprite.desenhe(x - camera.ox, y - camera.oy, 3)
 	fim
 
-	desenhar() 
-		sprite.desenhe(x + camera.ox, y + camera.oy, 3)
-	fim
-
-	atualizar(ds: Real) 
+	atualizar(ds: Real)
 		var nx = 0.0
 		var ny = 0.0
 
-		se Teclado.TECLA_W então ny := - (vel * ds)
+		se      Teclado.TECLA_W então ny := - (vel * ds)
 		senãose Teclado.TECLA_S então ny := (vel * ds)
 		senãose Teclado.TECLA_A então nx := - (vel * ds)
 		senãose Teclado.TECLA_D então nx := (vel * ds) fim
 
-		var teste = caixa_colisao.checar_posicao(mapa, Caixa(
-			Ponto(x + nx, y + ny), 
-			Ponto(x + nx + l, y + ny),
-			Ponto(x + nx, y + ny + h),
-			Ponto(x + nx + l, y + ny + h)))
+		teste = caixa_colisao.checar_posicao(mapa, Caixa(x + nx, y + ny, l, h))
 
-		var colidiu = teste[1]
-		venceu := teste[2]
+		colidiu = teste.primeiro
+		venceu := teste.segundo
 
-		se 
-			colidiu == falso
-		então
+		se não colidiu então
 			x := x + nx
-			y := y + ny
-		senão
-			nx := 0.0
-			ny := 0.0
+  		y := y + ny
 		fim
 
-		caixa_colisao := Caixa(
-			Ponto(x, y), 
-			Ponto(x + l, y),
-			Ponto(x, y + h),
-			Ponto(x + l, y + h))
-
-		camera.deslocar(nx, ny, x + camera.ox, y + camera.oy)
-
+		caixa_colisao := Caixa(x, y, l, h)
 	fim
 fim
