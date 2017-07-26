@@ -1,0 +1,29 @@
+tipo Menu
+	titulo: Texto
+	itens: Lista[Texto]
+	var item_selecionado := 1
+	ft = Fonte(52)
+	fi = Fonte(36)
+
+	atualizar()
+		se Teclado.TECLA_W então 
+			item_selecionado := se item_selecionado - 1 > 0 então item_selecionado - 1 senão item_selecionado fim
+		senãose Teclado.TECLA_S então 
+			item_selecionado := se item_selecionado + 1 <= itens.tamanho então item_selecionado + 1 senão item_selecionado fim
+		fim
+	fim
+
+	desenhar()
+		ft.desenhe_centralizado(titulo, 320, 100, 10, Cor.PRETO)
+		var x := 320
+		var y := 200
+		para i de 1 até itens.tamanho faça
+			se i == item_selecionado então
+				fi.desenhe_centralizado(itens[i], x, y, 10, Cor.VERMELHO)
+			senão
+				fi.desenhe_centralizado(itens[i], x, y, 10, Cor.PRETO)
+			fim
+			y := y + 40
+		fim
+	fim
+fim
