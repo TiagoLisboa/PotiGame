@@ -11,14 +11,12 @@ use "entidades/player.poti"
 use "entidades/timer.poti"
 use "entidades/menu.poti"
 
-var iniciou := falso
-
 f = Fonte(16)
 fg = Fonte(30)
 background = ler_lista_inteiro("assets/background.txt")
 foreground = ler_lista_inteiro("assets/foreground.txt")
 
-menu_inicar = Menu("Iniciar", ["Novo Jogo", "Ir para casa"])
+menu_inicar = Menu("Iniciar", ["Novo Jogo", "Ir para casa"], 1)
 
 tileset   = Imagem("assets/tiles.png").fatie(32, 32)
 spritesheet = Imagem("assets/Sprites.png").fatie(32, 32)
@@ -28,7 +26,7 @@ contador  = Timer(10.0, 15.0, 300.0)
 camera    = Camera(640, 480, player)
 
 atualize()
-	se iniciou == verdadeiro então
+	se menu_inicar.fez_algo == 1 então
 		se contador.tempo > 0 e não player.venceu então
 			ds = calcular_ds(Relogio.milisegundos)
 			player.atualizar(ds)
@@ -43,7 +41,7 @@ atualize()
 fim
 
 desenhe()
-	se iniciou == verdadeiro então
+	se menu_inicar.fez_algo == 1 então
 		labirinto.desenhar(camera)
 		player.desenhar(camera)
 		contador.desenhar(f)

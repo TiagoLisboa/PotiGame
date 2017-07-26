@@ -1,7 +1,9 @@
 tipo Menu
 	titulo: Texto
 	itens: Lista[Texto]
+	var faz_algo: Inteiro
 	var item_selecionado := 1
+	var fez_algo = 0
 	ft = Fonte(52)
 	fi = Fonte(36)
 
@@ -10,6 +12,10 @@ tipo Menu
 			item_selecionado := se item_selecionado - 1 > 0 então item_selecionado - 1 senão item_selecionado fim
 		senãose Teclado.TECLA_S então 
 			item_selecionado := se item_selecionado + 1 <= itens.tamanho então item_selecionado + 1 senão item_selecionado fim
+		fim
+
+		se Teclado.TECLA_ENTER então
+			fez_algo := item_selecionado
 		fim
 	fim
 
