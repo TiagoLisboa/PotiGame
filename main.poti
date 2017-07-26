@@ -15,9 +15,10 @@ fg = Fonte(30)
 background = ler_lista_inteiro("assets/background.txt")
 foreground = ler_lista_inteiro("assets/foreground.txt")
 
-imagens   = Imagem("assets/tileset.png").fatie(32, 32)
-labirinto = Mapa(background, foreground, 50, 50, imagens)
-player    = Jogador(50, 50, 32, 32, imagens[3], labirinto)
+tileset   = Imagem("assets/tiles.png").fatie(32, 32)
+spritesheet = Imagem("assets/Sprites.png").fatie(32, 32)
+labirinto = Mapa(background, foreground, 50, 50, tileset)
+player    = Jogador(50, 50, 32, 32, spritesheet[1], labirinto)
 contador  = Timer(10.0, 15.0, 300.0)
 camera    = Camera(640, 480, player)
 
