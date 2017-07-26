@@ -1,23 +1,12 @@
 tipo Camera
   # construtor
-	var ox, oy: Real
 	l, h: Inteiro
-	mapa: Mapa
+	jogador: Jogador
 
   # metodos
-	deslocar(dx, dy, px, py: Real)
-		check(o, d, p, m: Real, tam: Inteiro) = o - d <= 0 e o - d >= l - (tam * 32) e (
-			 (d > 0 e (p <= m + 50 e p >= m + 30)) ou (d < 0 e (p >= m - 50 e p <= m - 30)))
+	maior(a, b: Real) = se a > b então a senão b fim
+	menor(a, b: Real) = se a > b então b senão a fim
 
-		se check(ox, dx, px, l / 2, mapa.largura) então
-			ox := ox - dx
-		fim
-
-		se check(oy, dy, px, h / 2, mapa.altura) então
-			oy := oy - dy
-		fim
-
-		mapa.ox := ox
-		mapa.oy := oy
-	fim
+	ox() = menor(maior(jogador.x - 320, 0), l * 32 - 640)
+  oy() = menor(maior(jogador.y - 240, 0), h * 32 - 480)
 fim

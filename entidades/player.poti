@@ -4,7 +4,6 @@ tipo Jogador
 	var l, h: Inteiro
 	var sprite: Imagem
 	var mapa: Mapa
-	var camera: Camera
 	#var inimigos: Lista[Inimigo]
 
 	# atributos
@@ -18,8 +17,8 @@ tipo Jogador
 
 	checar_colisao(box: Caixa) = box.checar_colisao(caixa_colisao)
 
-	desenhar()
-		sprite.desenhe(x + camera.ox, y + camera.oy, 3)
+	desenhar(camera: Camera)
+		sprite.desenhe(x - camera.ox, y - camera.oy, 3)
 	fim
 
 	atualizar(ds: Real)
@@ -45,7 +44,5 @@ tipo Jogador
 		fim
 
 		caixa_colisao := Caixa(x, y, l, h)
-
-		camera.deslocar(nx, ny, x + camera.ox, y + camera.oy)
 	fim
 fim

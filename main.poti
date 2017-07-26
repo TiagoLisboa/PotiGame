@@ -16,10 +16,11 @@ background = ler_lista_inteiro("assets/background.txt")
 foreground = ler_lista_inteiro("assets/foreground.txt")
 
 imagens   = Imagem("assets/tileset.png").fatie(32, 32)
-labirinto = Mapa(0, 0, background, foreground, 50, 50, imagens)
-camera    = Camera(0.0, 0.0, 640, 480, labirinto)
-player    = Jogador(50, 50, 32, 32, imagens[3], labirinto, camera)
+labirinto = Mapa(background, foreground, 50, 50, imagens)
+# camera    = Camera(0.0, 0.0, 640, 480, labirinto)
+player    = Jogador(50, 50, 32, 32, imagens[3], labirinto)
 contador  = Timer(10.0, 15.0, 300.0)
+camera    = Camera(640, 480, player)
 
 atualize()
 	se contador.tempo > 0 e não player.venceu então
@@ -32,8 +33,8 @@ atualize()
 fim
 
 desenhe()
-	labirinto.desenhar()
-	player.desenhar()
+	labirinto.desenhar(camera)
+	player.desenhar(camera)
 	contador.desenhar(f)
 
 	se player.venceu então
