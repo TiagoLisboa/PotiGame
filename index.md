@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# PotiGame
+Joguinho feito em potigol, como atividade avaliativa da disciplina de 
+programação de computadores para os alunos [Tiago Lisboa](https://github.com/TiagoLisboa) e 
+[Lucas Matthaus](https://github.com/LuckyShard).
 
-You can use the [editor on GitHub](https://github.com/TiagoLisboa/PotiGame/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+# Descrição do Jogo
+Neste jogo, o jogador entra na pele de um homem com tanta fome q ficou amarelo, e está desesperado a procura de comida em
+um labirinto maluco. Seu objetivo final é encontrar a rosquinha antes que desmanhe de fome.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Regras
+O jogador deve chegar a rosquinha antes de acabar o tempo, que fica localizado na parte superior esquerda da tela.
 
-### Markdown
+# Telas
+![menu](https://user-images.githubusercontent.com/6991359/28648244-cac6eb12-7242-11e7-8bce-7f59fe4d6ee9.png)
+![labirinto](https://user-images.githubusercontent.com/6991359/28648248-ce85ebcc-7242-11e7-9792-5f365adb0c39.png)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/TiagoLisboa/PotiGame/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# Como Jogar
+Execute com o potigol o arquivo main.poti, contido na raiz do repositório deste projeto.
