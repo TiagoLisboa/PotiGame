@@ -2,14 +2,17 @@ tipo Jogador
   # construtor
 	var x, y: Real
 	var l, h: Inteiro
-	var sprite: Imagem
+	var sprite: Lista[Imagem]
 	var mapa: Mapa
-	#var inimigos: Lista[Inimigo]
 
 	# atributos
+	parado = sprite[1]
+	var deslocando = 0
 	var venceu = falso
-	vel = 50
+	vel = 30
 	var caixa_colisao := Caixa(x, y, l, h)
+	var sprite_c = 1
+	var ns = 1
 
   # metodos
 	init = para i de 1 até 1 faça iniciar() fim
@@ -18,17 +21,39 @@ tipo Jogador
 	checar_colisao(box: Caixa) = box.checar_colisao(caixa_colisao)
 
 	desenhar(camera: Camera)
-		sprite.desenhe(x - camera.ox, y - camera.oy, 3)
+		se deslocando == 0 então
+			parado.desenhe(x - camera.ox, y - camera.oy, 3)
+			sprite_c := 1
+			ns := 1
+		senão
+			ns := ns + 1
+			se ns == 10 então
+				ns := 1
+				sprite_c := se sprite_c == 4 então 1 senão sprite_c + 1 fim
+			fim
+			sprite[sprite_c].desenhe(x - camera.ox, y - camera.oy, 3, 90*deslocando-90)
+		fim
 	fim
 
 	atualizar(ds: Real)
 		var nx = 0.0
 		var ny = 0.0
 
-		se      Teclado.TECLA_W então ny := - (vel * ds)
-		senãose Teclado.TECLA_S então ny := (vel * ds)
-		senãose Teclado.TECLA_A então nx := - (vel * ds)
-		senãose Teclado.TECLA_D então nx := (vel * ds) fim
+		deslocando := 0
+
+		se Teclado.TECLA_W então 
+			ny := - (vel * ds)
+			deslocando := 3
+		senãose Teclado.TECLA_S então 
+			ny := (vel * ds)
+			deslocando := 1
+		senãose Teclado.TECLA_A então 
+			nx := - (vel * ds)
+			deslocando := 2
+		senãose Teclado.TECLA_D então 
+			nx := (vel * ds) 
+			deslocando := 4
+		fim
 
 		teste = caixa_colisao.checar_posicao(mapa, Caixa(x + nx, y + ny, l, h))
 
