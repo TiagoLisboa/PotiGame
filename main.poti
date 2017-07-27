@@ -22,7 +22,7 @@ tileset   = Imagem("assets/tiles.png").fatie(32, 32)
 spritesheet = Imagem("assets/Sprites.png").fatie(32, 32)
 labirinto = Mapa(background, foreground, 50, 50, tileset)
 player    = Jogador(50, 50, 32, 32, spritesheet, labirinto)
-contador  = Timer(10.0, 15.0, 300.0)
+contador  = Timer(10.0, 15.0, 1000.0)
 camera    = Camera(640, 480, player)
 
 atualize()
@@ -49,7 +49,7 @@ desenhe()
 		se player.venceu então
 			fg.desenhe_centralizado("Você venceu", 640/2, 480/2, 5, Cor.MAGENTA)
 		senãose contador.tempo <= 0 então
-			fg.desenhe_centralizado("Nós Perdemos", 640/2, 480/2, 5, Cor.MAGENTA)
+			fg.desenhe_centralizado("Você perdeu", 640/2, 480/2, 5, Cor.MAGENTA)
 		fim
 	senão
 		menu_inicar.desenhar()
