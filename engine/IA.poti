@@ -1,125 +1,82 @@
-use "jerimum"
-
 tipo AstarNode
-	var x, y, p, g, h, f: Inteiro
+	x, y, p: Inteiro
+	var g, h, f = -1
 fim
 
 tipo Astar
-	var start, end: Ponto
-	var mapa: Mapa
-	var open_nodes = [AstarNode(start.x.inteiro, start.y.inteiro, -1, -1, -1, -1)]
-	var closed_nodes = Lista(0, AstarNode(start.x.inteiro, start.y.inteiro, -1, -1, -1, -1))
-	var path = Lista(0, AstarNode(start.x.inteiro, start.y.inteiro, -1, -1, -1, -1))
+	start, end: Ponto
+	livre: Ponto => Lógico   # função para saber se um ponto está livre
+	start_node = AstarNode(start.x.inteiro, start.y.inteiro, 0)
+  dest_node =  AstarNode(end.x.inteiro, end.y.inteiro, 0)
+	var open_nodes := [start_node]
+	empty_list = open_nodes.cauda
+	var closed_nodes := empty_list
 
-	heuristica(c, d: AstarNode)
-		var hx := c.x - d.x
-		var hy := c.y - d.y
+	heuristica(c, d: AstarNode) = abs(c.x - d.x) + abs(c.y - d.y)
 
-		hx := se hx < 0 então -hx senão hx fim
-		hy := se hy < 0 então -hy senão hy fim
+	custo(c, d: AstarNode) = 10
 
-		retorne hx + hy
-	fim
+	expanda(c: AstarNode) = [
+		Ponto(c.x    , c.y - 1),  # norte
+    Ponto(c.x    , c.y + 1),  # sul
+    Ponto(c.x + 1, c.y    ),  # leste
+    Ponto(c.x - 1, c.y    )   # oeste
+  ]
 
-	custo(c, d: AstarNode)
-		retorne 10
-	fim
+  menor_f() # procura o nó com menor valor f
+  	var low_i := 1
+  	para i de 1 até open_nodes.tamanho faça
+	  	se open_nodes[i].f < open_nodes[low_i].f então
+		  	low_i := i
+		  fim
+	  fim
+    retorne low_i
+  fim
 
-	expanda(c: AstarNode)
-		x = c.x
-		y = c.y
+  caminho(node, dest_node: AstarNode)
+  	var path := [dest_node]
+		var current_node := node
+  	enquanto current_node.p <> 0 faça
+	  	current_node := closed_nodes[current_node.p]
+		  path := current_node :: path
+	  fim
+    retorne path
+  fim
 
-		retorne [ 	
-					[x, (y - 1)],  # north
-             		[x, (y + 1)],  # south
-             		[(x + 1), y],  # east
-             		[(x - 1), y]   # west
-             	]
-	fim
+  in_closed(vx, vy: Inteiro) = closed_nodes.selecione(cn => vx == cn.x e vy == cn.y).tamanho > 0
+	in_open(vx, vy: Inteiro)   = open_nodes.selecione(cn => vx == cn.x e vy == cn.y).tamanho > 0
 
-	passable(x, y: Inteiro)
-		se x < 1 ou y < 1 ou x >= mapa.largura ou y >= mapa.altura então falso senão verdadeiro fim
-	fim
+  incluir_vizinhos(current_node: AstarNode)
+		neighbor_nodes = expanda(current_node)
+		para vizinho em neighbor_nodes faça
+			vx		= vizinho.x.inteiro
+			vy		= vizinho.y.inteiro
 
+			se (livre(Ponto(vx, vy)) ou (vx == dest_node.x e vy == dest_node.y)) e
+			      não in_closed(vx, vy) e não in_open(vx, vy) então
+				new_node = AstarNode(vx, vy, - closed_nodes.tamanho)
+				new_node.g := current_node.g + custo(current_node, new_node)
+				new_node.h := heuristica(new_node, dest_node)
+				new_node.f := new_node.g + new_node.h
 
-	encontra_rota()
-		var mapam = mapa.foreground_para_matriz
-
-		destx = end.x.inteiro #(end.x/32).inteiro + 1
-		desty = end.y.inteiro #(end.y/32).inteiro + 1
-
-		dest_node = AstarNode(destx, desty, -1, -1, -1, -1)
-
-		var break := falso
-
-		enquanto open_nodes.tamanho > 0 e break == falso faça
-			var low_i := 1
-
-			para i de 1 até open_nodes.tamanho faça
-				se open_nodes[i].f < open_nodes[low_i].f então
-					low_i := i
-				fim
-			fim
-			best_node = low_i
-
-			var current_node := open_nodes[best_node]
-
-			se (current_node.x == dest_node.x) e (current_node.y == dest_node.y) então
-				#escreva closed_nodes
-				path := [dest_node]
-
-				# recreate the path
-				enquanto current_node.p > 0 faça
-					current_node := closed_nodes[current_node.p]
-					path := [current_node] + path
-				fim
-
-				break := verdadeiro
-			fim
-
-			open_nodes := open_nodes.remova(best_node)
-
-			closed_nodes := closed_nodes + [current_node]
-
-			neighbor_nodes = expanda(current_node)
-			para n de 1 até neighbor_nodes.tamanho faça
-				visinho = neighbor_nodes[n]
-				vx		= visinho[1]
-				vy		= visinho[2]
-
-				se passable(vx, vy) == verdadeiro e (mapam[vy][vx] == 0 ou (vx == dest_node.x e vy == dest_node.y)) então
-					var in_closed := falso
-					para j de 1 até closed_nodes.tamanho faça
-						closed_node = closed_nodes[j]
-						se vx == closed_node.x e vy == closed_node.y então
-							in_closed := verdadeiro
-						fim
-					fim
-
-					var in_open = falso
-					se in_closed == falso então
-						para j de 1 até open_nodes.tamanho faça
-							open_node = open_nodes[j]
-							se vx == open_node.x e vy == open_node.y então
-								in_open := verdadeiro
-							fim
-						fim
-					fim
-
-					se in_open == falso e in_closed == falso então
-						new_node = AstarNode(vx, vy, closed_nodes.tamanho, -1, -1, -1)
-
-						new_node.g := current_node.g + custo(current_node, new_node)
-			            new_node.h := heuristica(new_node, dest_node)
-			            new_node.f := new_node.g + new_node.h
-
-			            open_nodes := open_nodes + [new_node]
-					fim
-				fim
+        open_nodes := new_node :: open_nodes
 			fim
 		fim
-
-		retorne path
 	fim
 
+	encontra_rota()
+  	var resp := empty_list
+		enquanto open_nodes.tamanho > 0 e resp.tamanho == 0 faça
+			best_node = menor_f
+			current_node = open_nodes[best_node]
+			se (current_node.x == dest_node.x) e (current_node.y == dest_node.y) então
+				resp := caminho(current_node, dest_node)
+			senão
+  			open_nodes := open_nodes.remova(best_node)
+  			closed_nodes := current_node :: closed_nodes
+				incluir_vizinhos(current_node)
+			fim
+		fim
+		retorne resp.mapeie(n => Ponto(n.x, n.y))
+	fim
 fim
